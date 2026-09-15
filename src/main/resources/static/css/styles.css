@@ -1,0 +1,366 @@
+/* Digital Certificate Verification System - Premium Design System */
+:root {
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-glow: rgba(59, 130, 246, 0.3);
+  --accent-gold: #f59e0b;
+  --bg-dark: #0f172a;
+  --bg-card: rgba(30, 41, 59, 0.7);
+  --bg-card-hover: rgba(51, 65, 85, 0.8);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --valid-color: #10b981;
+  --valid-glow: rgba(16, 185, 129, 0.25);
+  --revoked-color: #ef4444;
+  --revoked-glow: rgba(239, 68, 68, 0.25);
+  --expired-color: #f59e0b;
+  --expired-glow: rgba(245, 158, 11, 0.25);
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background: radial-gradient(circle at 15% 15%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: pageFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Navigation Bar */
+.navbar-custom {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff !important;
+}
+
+.navbar-brand i {
+  color: var(--primary-color);
+}
+
+/* Buttons */
+.btn-primary-custom {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 14px var(--primary-glow);
+  transition: all 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--primary-glow);
+  color: #fff;
+}
+
+.btn-outline-custom {
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.btn-outline-custom:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Status Badges */
+.badge-status {
+  padding: 0.5em 1em;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.badge-valid {
+  background: var(--valid-glow);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.badge-revoked {
+  background: var(--revoked-glow);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.badge-expired {
+  background: var(--expired-glow);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+/* Certificate Preview Document Frame */
+.certificate-frame {
+  background: #ffffff;
+  color: #1e293b;
+  border-radius: 12px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+  border: 12px solid #f1f5f9;
+  outline: 2px solid #2563eb;
+}
+
+.certificate-frame::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid #d97706;
+  pointer-events: none;
+}
+
+.cert-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cert-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #1e293b;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.cert-subtitle {
+  color: #64748b;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.cert-recipient {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-align: center;
+  margin: 1.5rem 0;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.cert-course {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Stat Widgets */
+.stat-card {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Table Styling */
+.table-custom {
+  color: var(--text-main);
+}
+
+.table-custom th {
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-custom td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+/* Loading Spinner */
+.spinner-custom {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  background: rgba(15, 23, 42, 0.9);
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  color: var(--text-muted);
+}
+
+/* High Contrast Form Controls & Scoped Text Visibility */
+.form-control, .form-select {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25) !important;
+}
+
+.form-control::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1;
+}
+
+select option {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+/* Global Dark Theme Typography */
+body, p, label, span, h1, h2, h3, h4, h5, h6 {
+  color: #f8fafc;
+}
+
+.text-dark {
+  color: #f8fafc !important;
+}
+
+.text-muted, .form-text {
+  color: #cbd5e1 !important;
+}
+
+.text-secondary {
+  color: #94a3b8 !important;
+}
+
+/* White Certificate Document Frame - Scoped Light Theme */
+.certificate-frame {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.certificate-frame p,
+.certificate-frame div,
+.certificate-frame span,
+.certificate-frame td,
+.certificate-frame th {
+  color: #0f172a;
+}
+
+.certificate-frame .cert-title {
+  color: #1e293b !important;
+}
+
+.certificate-frame .cert-subtitle {
+  color: #64748b !important;
+}
+
+.certificate-frame .cert-recipient {
+  color: #2563eb !important;
+}
+
+.certificate-frame .cert-course {
+  color: #0f172a !important;
+}
+
+.certificate-frame .text-dark {
+  color: #0f172a !important;
+}
+
+.certificate-frame .text-muted {
+  color: #475569 !important;
+}
+
+.certificate-frame .text-secondary {
+  color: #334155 !important;
+}
+
+.certificate-frame .font-monospace {
+  color: #1e293b !important;
+  font-weight: 700;
+}
+
+.modal-content {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+
